@@ -11,29 +11,17 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <!-- Build an executable JAR -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.0.2</version>
         <configuration>
           <archive>
             <manifest>
@@ -45,22 +33,20 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M3</version>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>clover-maven-plugin</artifactId>
+        <configuration>
+          <generatePdf>true</generatePdf>
+          <generateXml>true</generateXml>
+          <generateHtml>false</generateHtml>
+          <generateJson>false</generateJson>
+        </configuration>
         <executions>
           <execution>
-            <id>enforce-maven</id>
+            <phase>generate-sources</phase>
             <goals>
-              <goal>enforce</goal>
+              <goal>instrument</goal>
             </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[3.5.4,)</version>
-                </requireMavenVersion>
-              </rules>
-            </configuration>
           </execution>
         </executions>
       </plugin>
